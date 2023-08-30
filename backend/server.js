@@ -13,6 +13,7 @@ const mealPlanRoutes = require('./routes/mealPlanRoutes.js');
 const shoppingListRoutes = require('./routes/shoppingListRoutes.js');
 const authUtil = require('./auth/authUtil');
 const recipeService = require('./services/recipesService.js');
+const mealPlanService = require('./services/mealPlanService.js');
 
 const {SERVER_PORT, DB_CONNECTION_STRING} = require('./constants.js');
 
@@ -54,13 +55,14 @@ app.get("/api/users/:id", async function (req, res, next) {
 });
 app.delete("/api/users/:id", async function (req, res, next) {
     await authUtil.authorizeRequest(req, res, next, function(user, decodedJWT) {
-        isAdmin = decodedJWT.role === 'administrator';
+        let isAdmin = decodedJWT.role === 'administrator';
         if (req.params.id != decodedJWT.id && !isAdmin) {
             res.status(403).send("Forbidden");
             res.end();
         }
     });
 });
+
 app.use('/api/users', userRoutes);
 app.use('/api/login', loginRoutes);
 app.use('/api/logout', logoutRoutes);
@@ -102,6 +104,28 @@ app.use("/api/recipes/:id/reviews/:reviewId", function (req, res, next) {
     next();
 });
 app.use('/api/recipes', recipeRoutes);
+
+app.all("/api/mealPlans", async function (req, res, next) {
+    await authUtil.authorizeRequest(req, res, next, function(user, decoded) {
+    });
+});
+
+app.all("/api/mealPlans/:planId", async function (req, res, next) {
+    await authUtil.authorizeRequest(req, res, next, async function(user, decodedJWT) {
+        let isAdmin = decodedJWT.role === 'administrator';
+        let mealPlan = await mealPlanService.getMealPlanById(req.params.planId);
+        if (mealPlan === null || mealPlan === undefined) {
+            res.status(403).send("Forbidden");
+            res.end();
+        } else {
+            console.log(mealPlan);
+            if (!mealPlan.owner.equals(user._id) && !isAdmin) {
+                res.status(403).send("Forbidden");
+                res.end();
+            }
+        }
+    });
+});
 app.use('/api/mealPlans', mealPlanRoutes);
 app.use('/api/shoppingLists', shoppingListRoutes);
 

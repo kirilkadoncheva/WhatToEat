@@ -4,13 +4,12 @@ const recipeService = require('../services/recipesService.js');
 const RecipeModel = require('../models/recipeModel.js');
 const authUtil = require('../auth/authUtil');
 const ReviewModel = require('../models/reviewModel.js');
-const { log } = require('console');
 
 router.post('/', async (req, res) => {
     let creatorId;
     await authUtil.findUserByAuthToken(req, (err, user) => {
         creatorId = user._id;
-    })
+    });
 
     const newRecipe = new RecipeModel({
         title: req.body.title,

@@ -10,6 +10,7 @@ const UserModel = require('../models/userModel.js')
 const {SECRET_JWT_CODE, JWT_HEADER_NAME} = require('../constants.js');
 const AUTH_HEADER_NAME = "Authorization";
 const authUtil = require('../auth/authUtil');
+const mealPlanService = require('../services/mealPlanService.js');
 
 router.post('/', (req, res) => {
     if (res.writableFinished) {
@@ -118,6 +119,33 @@ router.delete('/:id', async (req, res) => {
         console.error(error);
         res.status(500).json({message: error.message});
         res.emd();
+    }
+});
+
+router.post('/:id/mealPlans', async (req, res) => {
+    if (res.writableFinished) {
+        return;
+    }
+    await mealPlanService.createMealPlan(req, res);
+});
+
+router.get('/:id/mealPlans', async (req, res) => {
+    if (res.writableFinished) {
+        return;
+    }
+    let ownerId;
+    await authUtil.findUserByAuthToken(req, (err, user) => {
+        ownerId = user._id;
+    });
+    
+    try {
+        let mealPlans = await mealPlanService.getMealPlansByUserId(ownerId);
+        res.status(200).json({data: mealPlans});
+        res.end();
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({message: error.message});
+        res.end();
     }
 });
 
