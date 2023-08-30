@@ -12,6 +12,9 @@ const AUTH_HEADER_NAME = "Authorization";
 const authUtil = require('../auth/authUtil');
 
 router.post('/', (req, res) => {
+    if (res.writableFinished) {
+        return;
+    }
     if(!req.body.password) {
         var errorMessage = "Password must be provided.";
         console.error(errorMessage);
@@ -29,7 +32,6 @@ router.post('/', (req, res) => {
     newUser.save()
     .then((user) => {
         const location = '/api/users/' + user._id;
-        user.password = '******';
         res.status(201);
         res.location(location);
         res.json(user);
@@ -38,24 +40,37 @@ router.post('/', (req, res) => {
         console.error(error);
         res.status(400).json({message: error.message});
 
-    })
+    });
 });
 
 router.get('/', async (req, res) => {
+    if (res.writableFinished) {
+        return;
+    }
     try {
         let users = await UserModel.find();
         res.status(200).json({data: users});
+        res.end();
     } catch (error) {
         console.error(error);
+        console.log(error.message);
         res.status(500).json({message: error.message});
+        res.end();
     }
 });
 
 
 router.get('/:id', async (req, res) => {
+    if (res.writableFinished) {
+        return;
+    }
     try {
         let user = await UserModel.findById(req.params.id);
-        res.status(200).json(user);
+        if (user === null || user === undefined) {
+            authUtil.sendForbidden(res);
+        } else {
+            res.status(200).json(user);
+        }
     } catch (error) {
         console.error(error);
         res.status(500).json({message: error.message});
@@ -63,6 +78,9 @@ router.get('/:id', async (req, res) => {
 });
 
 router.put('/:id', async (req, res) => {
+    if (res.writableFinished) {
+        return;
+    }
     try {
         let user = await UserModel.findById(req.params.id);
         let newPassword = !(req.body.password === null || req.body.password === undefined);
@@ -80,7 +98,6 @@ router.put('/:id', async (req, res) => {
         };
         await UserModel.updateOne({_id: req.params.id}, updateInfo);
         user = await UserModel.findById(req.params.id);
-        user.password = '******';
         res.status(200).json(user);
     } catch (error) {
         console.error(error);
@@ -89,12 +106,15 @@ router.put('/:id', async (req, res) => {
 });
 
 router.delete('/:id', async (req, res) => {
+    if (res.writableFinished) {
+        return;
+    }
     try {
         console.log('delete');
         await UserModel.findByIdAndDelete(req.params.id);
         res.status(204);
         res.end();
-    } catch (errpr) {
+    } catch (error) {
         console.error(error);
         res.status(500).json({message: error.message});
         res.emd();
