@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 
 const ingredientSchema = new mongoose.Schema({
-    id: {type: String, required: false},
     name: String,
     amount: Number,
     unit: {
@@ -10,6 +9,7 @@ const ingredientSchema = new mongoose.Schema({
         default: 'mg'
     }
 });
+
 const recipeSchema = new mongoose.Schema({
     id: {type: String, required: false},
     title: {type: String, required: true},
@@ -19,9 +19,8 @@ const recipeSchema = new mongoose.Schema({
     cookingAlgorithm: {type: String, required: true},
     image: {type: String, required: true},
     creator: {type: mongoose.Schema.Types.ObjectId, ref: "User", required: true},
-    ratings: [{type: mongoose.Schema.Types.ObjectId, ref: "Rating"}]
+    ingredients: [ingredientSchema]
 })
 
 const recipeModel = new mongoose.model('Recipe', recipeSchema);
-const ingredientModel = new mongoose.model('Ingredent', ingredientSchema);
-module.exports = {ingredientModel, recipeModel};
+module.exports = recipeModel;

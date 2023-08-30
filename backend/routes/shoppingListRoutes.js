@@ -1,8 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const mongodb = require('mongodb');
-const util = require('util');
-const indicative = require('indicative');
 
 
 router.post('/', (req, res) => {

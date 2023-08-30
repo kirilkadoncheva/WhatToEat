@@ -15,9 +15,7 @@ const userSchema = new mongoose.Schema({
     role: { 
         type: String,
         enum : ['user', 'administrator'],
-        default: 'user'},
-    mealPlans: [{type: mongoose.Schema.Types.ObjectId, ref: "MealPlan"}],
-    shoppingLists: [{type: mongoose.Schema.Types.ObjectId, ref: "ShoppingList"}]
+        default: 'user'}
 })
 
 userSchema.pre('save', function(next) {
