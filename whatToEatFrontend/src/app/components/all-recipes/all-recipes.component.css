@@ -1,0 +1,22 @@
+img {
+    width: fit-content;
+    height: 200px;
+}
+
+.btn-sm
+{
+   
+    color: #e24405;
+}
+
+.btn-sm:hover
+{
+    color: #0c4b00;
+    
+}
+
+.card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

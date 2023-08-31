@@ -1,0 +1,45 @@
+.header {
+    background-color: #f5a742;
+    
+}
+
+.title {
+
+    color: #0b0563;
+}
+
+img {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 10px;
+    
+    width:60px;
+    height:40px;
+}
+
+.btn-primary {
+    background-color: #e24405;
+    outline-color: white;
+    border-color: white;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #f5a742;
+    
+}
+
+.btn-outline {
+    outline-color: #e24405;
+    border-color: #e24405;
+    color: #e24405;
+}
+
+.btn-outline:hover {
+    background-color: #fcd197;
+    
+}
+
+a {
+    color:white;
+}
