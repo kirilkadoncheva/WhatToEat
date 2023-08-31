@@ -4,6 +4,7 @@ const RecipeModel = require('../models/recipeModel.js');
 const authUtil = require('../auth/authUtil');
 const MealPlanModel = require('../models/mealPlanModel.js');
 const mealPlanService = require('../services/mealPlanService.js');
+const querystring = require('querystring');
 
 router.post('/', async (req, res) => {
     if (res.writableFinished) {
@@ -16,11 +17,14 @@ router.get('/', async (req, res) => {
     if (res.writableFinished) {
         return;
     }
-    let ownerId;
-    await authUtil.findUserByAuthToken(req, (err, user) => {
-        ownerId = user._id;
-    });
-    
+
+    let ownerId = req.query.ownerId;
+    if (ownerId === null || ownerId === undefined) {
+        await authUtil.findUserByAuthToken(req, (err, user) => {
+            ownerId = user._id;
+        });
+    }
+ 
     try {
         let mealPlans = await mealPlanService.getMealPlansByUserId(ownerId);
         res.status(200).json({data: mealPlans});

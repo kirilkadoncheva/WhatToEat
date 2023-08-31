@@ -41,7 +41,7 @@ router.get('/', async (req, res) => {
     }
     try {
         let recipes = await RecipeModel.find();
-        res.status(200).json({data: recipes});
+        res.status(200).json(recipes);
         res.end();
     } catch (error) {
         console.error(error);

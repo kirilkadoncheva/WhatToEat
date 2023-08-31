@@ -24,7 +24,7 @@ const createMealPlan = async function(req, res) {
 
     newMealPlan.save()
     .then((plan) => {
-        const location = '/api/users/' + ownerId + "/mealPlans/" + plan._id;
+        const location = '/api/mealPlans/' + plan._id;
         res.status(201);
         res.location(location);
         res.json(plan);
