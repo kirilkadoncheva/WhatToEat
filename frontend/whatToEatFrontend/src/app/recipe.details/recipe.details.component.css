@@ -1,0 +1,61 @@
+.photo {
+    height: 600px;
+    width: 50%;
+    object-fit: cover;
+    border-radius: 30px;
+    float: right;
+  }
+  
+  .heading {
+    font-size: 48pt;
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
+  
+  /* .dueation::before {
+     content: url('/assets/location-pin.svg') / ''; 
+  } */
+  
+  .container {
+    display: flex;
+    align-items: center;
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+  }
+  .duration {
+    font-size: 24pt;
+    margin-bottom: 15px;
+  }
+  
+  .section-heading {
+    color: var(--secondary-color);
+    font-size: 24pt;
+    margin-bottom: 15px;
+  }
+  
+  label, input {
+    display: block;
+  }
+  label {
+    color: var(--secondary-color);
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 12pt;
+  }
+  input {
+    font-size: 16pt;
+    margin-bottom: 15px;
+    padding: 10px;
+    width: 400px;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    border-bottom: solid .3px;
+  }
+  @media (max-width: 1024px) {
+    .listing-photo {
+      width: 100%;
+      height: 400px;
+    }
+  }
