@@ -1,0 +1,34 @@
+<!-- <div class="clr-row">
+    <div class="clr-col-6">
+        <div class="name-container">
+            <h1>{{recipe.title}}</h1>
+        </div>
+        
+    </div>
+    <div class="clr-col" style="text-align: right;">
+        <div><br><br></div>
+        <button class="btn btn-sm" *ngIf="deleteButton" >Delete</button>
+    </div>
+</div>
+<div class="clr-row">
+    <div class="clr-col-6">
+        <div class="image-container">
+            <img src="{{recipe.image}}"/>
+        </div>
+        
+    </div>
+</div> -->
+
+<div class="container">
+    <article>
+        <img class="photi" [src]="recipe.image"/>
+        <section class="description">
+          <h2 class="heading">{{recipe.title}}</h2>
+          <p class="duration">{{recipe.cookingTime}} mins</p>
+        </section>
+        <section class="description">
+          <p>{{recipe.description}}</p>
+        </section>
+    </article>
+</div>
+

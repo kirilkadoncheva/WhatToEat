@@ -1,0 +1,23 @@
+<mat-progress-spinner *ngIf="recipes.length === 0"></mat-progress-spinner>
+    <div class="content">
+        <div fxLayout="row wrap" fxLayoutGap="10px">
+            <div fxFlex="25%" *ngFor="let recipe of recipes">
+                <mat-card class="mat-elevation-z4">
+                    <mat-card-header>
+                        <mat-card-title>{{recipe.title}}</mat-card-title>
+                        <mat-card-subtitle>{{recipe.cookingTime}} mins
+                        </mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <p>
+                            {{recipe.description}}
+                        </p>
+                        <img style="height:100%; width: 100%;" src="{{recipe.image}}" />
+                    </mat-card-content>
+                    <mat-card-actions>
+                  <button mat-button [routerLink]="['/recipes', recipe._id]">See more</button>
+                </mat-card-actions>
+                </mat-card>
+            </div>
+        </div>
+    </div>
