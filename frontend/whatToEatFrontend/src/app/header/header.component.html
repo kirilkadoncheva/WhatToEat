@@ -3,4 +3,10 @@
     WhatToEat
     </h1>  
     <button mat-button routerLink="/">Home</button>  
-    <button mat-button routerLink="/about">About</button></mat-toolbar><router-outlet></router-outlet>
+    <button mat-button routerLink="/about">About</button>
+    <span class="flexExpand"></span>
+    <div >
+        <a mat-button *ngIf="!isLoggedIn" routerLink="/login"> Login </a>
+        <a mat-button *ngIf="isLoggedIn" (click)="logout()"> Logout </a>
+    </div>
+</mat-toolbar><router-outlet></router-outlet>

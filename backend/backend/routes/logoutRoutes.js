@@ -11,9 +11,9 @@ router.post('/', async (req, res) => {
         } else {
             if (user) {
                 await UserModel.updateOne({_id: user._id}, {token: null});
-                res.status(200);
-                res.end();
-            }
+            } 
+            res.status(200);
+            res.end();
         }
     })
 });

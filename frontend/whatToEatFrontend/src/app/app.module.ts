@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { MatButtonModule } from '@angular/material/button';
@@ -13,13 +14,17 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 import { RecipeDetailsComponent } from './recipe.details/recipe.details.component';
 import { ClarityModule } from '@clr/angular';
 import { HeaderComponent } from './header/header.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     RecipeDetailsComponent,
-    HeaderComponent
+    HeaderComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +36,8 @@ import { HeaderComponent } from './header/header.component';
     MatProgressSpinnerModule,
     AppRoutingModule,
     FlexLayoutModule,
-    ClarityModule
+    ClarityModule,
+    FormsModule      
   ],
   providers: [],
   bootstrap: [AppComponent]
