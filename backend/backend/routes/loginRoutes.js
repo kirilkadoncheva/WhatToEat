@@ -6,8 +6,7 @@ const {JWT_HEADER_NAME} = require('../constants.js');
 
 router.post('/', async (req, res) => {
     if (!req.body.email || !req.body.password) {
-        res.send(400).json({message: 'Username and password must be provided.'});
-        res.end();
+        res.status(400).json({message: 'Username and password must be provided.'});
     } else {
         try {
             let user = await UserModel.findOne({email: req.body.email});

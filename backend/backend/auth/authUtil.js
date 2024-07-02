@@ -32,20 +32,26 @@ const authorizeRequest = async (req, res, next, cb) => {
 
 const verifyTokenOnCreateUser = async (req, res, next) => {
     var roleInBody = req.body.role;
+    console.log(roleInBody);
+    console.log(roleInBody === 'administrator');
     if (roleInBody === 'administrator') {
         const { authorization } = req.headers;
         if (!authorization) {
+            console.log(authorization);
             sendUnauthorized(res);
             res.end();
         } else {
             const jwt = authorization.split(' ')[1];
+            console.log(jwt);
             try {
                  const decoded = await JsonWebToken.verify(jwt, SECRET_JWT_CODE);
                  var isAdmin = decoded.role == 'administrator';
+                 console.log(isAdmin);
                  if (!isAdmin) {
                     sendForbidden(res);
                     res.end();
-                 }  else {
+                 }  
+                 else {
                     let user = await UserModel.findOne({_id: decoded.id, token: jwt});
                     if (!user) {
                         sendForbidden(res);
@@ -55,6 +61,7 @@ const verifyTokenOnCreateUser = async (req, res, next) => {
                     }
                  }
             } catch (error) {
+                console.error(error);
                 sendUnauthorized(res);
                 res.end();
             }
