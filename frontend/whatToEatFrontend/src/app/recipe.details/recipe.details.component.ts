@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Recipe, RecipeService } from '../services/recipe.service';
+import { Recipe, RecipeService, Review } from '../services/recipe.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TokenService } from '../services/token.service';
+import { UserRole } from '../authentication/sign-up-info';
 
 @Component({
   selector: 'app-recipe.details',
@@ -11,16 +13,20 @@ export class RecipeDetailsComponent implements OnInit {
   public recipeUrl : String ;
   deleteButton : boolean = false;
   isDeleteModalOpen : boolean = false;
-  sub : any ;
+  subRecipe : any ;
+  subReviews : any ;
   private id: string;
   public recipe: Recipe;
+  public ownerName: String; 
+  public reviews: Array<Review>; 
 
   constructor(private activatedRoute:ActivatedRoute,
     private recipeService: RecipeService,
+    private token: TokenService,
     private router : Router) { }
 
   ngOnInit(): void {
-    this.sub = this.activatedRoute.paramMap.subscribe(params => { 
+    this.subRecipe = this.activatedRoute.paramMap.subscribe(params => { 
       this.id = params.get('id')!; 
       console.log(this.id);
       this.recipeService.getById(this.id).subscribe(
@@ -29,21 +35,34 @@ export class RecipeDetailsComponent implements OnInit {
   })}
 
   loadRecipe(response: Recipe): void {
-
     if(response)
     {
-      console.log(response);
       this.recipe = response;
       console.log(this.recipe);
-      // this.checkCharityOwner();
-
+      this.recipeService.getReviewsForRecipe(this.recipe._id).subscribe((data) => {  
+        this.reviews = data;  
+      })
     }
-    // else
-    // {
-
-    // }
-    
-  
   }
-  
+
+  showReviewButton(): boolean {
+    if (this.token.getToken() && this.token.getUser()._id != this.recipe.creator) {
+      return true;
+    }
+    return false;
+  }
+
+  showDeleteButton(): boolean {
+    if (this.token.getToken() && 
+      (this.token.getUser()._id === this.recipe.creator || this.token.getUser().role == UserRole[1])) {
+      return true;
+    }
+    return false;
+  }
+
+  deleteRecipe(): void {
+    this.recipeService.delete(this.id).subscribe(
+      response => this.router.navigate(['/home'])
+     );
+  }
 }

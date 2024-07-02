@@ -4,9 +4,11 @@
     </h1>  
     <button mat-button routerLink="/">Home</button>  
     <button mat-button routerLink="/about">About</button>
+    <button mat-button *ngIf="isLoggedIn" routerLink="/createRecipe">Create</button>
     <span class="flexExpand"></span>
-    <div >
+    <div>
+        <a mat-button *ngIf="isLoggedIn" [routerLink]="['/profiles', userId]"> {{userEmail}} </a>
         <a mat-button *ngIf="!isLoggedIn" routerLink="/login"> Login </a>
         <a mat-button *ngIf="isLoggedIn" (click)="logout()"> Logout </a>
     </div>
-</mat-toolbar><router-outlet></router-outlet>
+</mat-toolbar>

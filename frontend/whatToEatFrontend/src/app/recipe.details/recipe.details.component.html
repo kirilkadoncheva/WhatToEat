@@ -1,34 +1,74 @@
-<!-- <div class="clr-row">
-    <div class="clr-col-6">
-        <div class="name-container">
-            <h1>{{recipe.title}}</h1>
-        </div>
-        
+<div id = "main">
+    <div id="infoDiv">
+        <article>
+            <section class="heading">
+              <h2 class="heading">{{recipe.title}}</h2>
+              <p class="duration">Created by {{recipe.creatorName}}</p>
+              <button *ngIf="showReviewButton()" type="button" [routerLink]="['review']">Review</button>
+              <button *ngIf="showDeleteButton()" type="button" (click)="deleteRecipe()" >Delete</button>
+            </section>
+            <section class="generalInfo">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Cooking Time</th>
+                            <th>Number of Servings</th>
+                          </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{recipe.cookingTime}} mins</td>
+                            <td>{{recipe.numberOfServings}}</td>
+                          </tr>
+                    </tbody>
+                  </table>
+            </section>
+            <br>
+            <section class="description">
+              <p>{{recipe.description}}</p>
+            </section>
+            <section class="ingredients">
+                <table class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Amount</th>
+                                <th>Unit</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let ingredient of recipe.ingredients">
+                                <td>{{ingredient.name}}</td>
+                                <td>{{ingredient.amount}}</td>
+                                <td>{{ingredient.unit}}</td>
+                            </tr>
+                        </tbody>
+                </table>
+            </section>
+            <br>
+            <section class="cookingAlgorithm">
+                <h2>Steps:</h2>
+                <p>{{recipe.cookingAlgorithm}}</p>
+            </section>
+        </article>
     </div>
-    <div class="clr-col" style="text-align: right;">
-        <div><br><br></div>
-        <button class="btn btn-sm" *ngIf="deleteButton" >Delete</button>
+    <div id = "photoDiv">
+        <img class="photo" [src]="recipe.image"/>
     </div>
 </div>
-<div class="clr-row">
-    <div class="clr-col-6">
-        <div class="image-container">
-            <img src="{{recipe.image}}"/>
-        </div>
-        
-    </div>
-</div> -->
-
-<div class="container">
+<div id="reviewsDiv">
     <article>
-        <img class="photi" [src]="recipe.image"/>
-        <section class="description">
-          <h2 class="heading">{{recipe.title}}</h2>
-          <p class="duration">{{recipe.cookingTime}} mins</p>
-        </section>
-        <section class="description">
-          <p>{{recipe.description}}</p>
+        <section>
+            <h2>Reviews:</h2>
+            <mat-list *ngFor="let review of reviews">
+                <hr>
+                <mat-list-item >
+                    <p style="float:left">{{review.reviewerName}} - {{review.rating}}/5 stars</p>
+                    <br>
+                    <p style="float:right">{{review.comment}}</p>
+                </mat-list-item>
+           </mat-list>
         </section>
     </article>
 </div>
-
+<router-outlet></router-outlet>

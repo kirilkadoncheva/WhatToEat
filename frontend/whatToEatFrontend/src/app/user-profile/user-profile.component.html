@@ -1,0 +1,30 @@
+<div id="main">
+    <div id="info">
+        <h1>My profile</h1>
+        <img
+        id="profile-img"
+        [src]="userAvatarUrl"
+        class="profile-img-card"
+      /> 
+      <br>
+      <label class="image-upload-container btn btn-bwm">
+        <span>Select Image</span>
+        <input #imageInput
+               type="file"
+               accept="image/*"
+               (change)="processFile(imageInput)">
+      </label>
+      <br><br>
+        <b>First name:</b> <input id="firstName"  [(ngModel)]="form.firstName" class="form-control" placeholder="{{user.firstName}}"><br><br>
+        <b>Last name:</b> <input id="lastName"  [(ngModel)]="form.lastName" class="form-control" placeholder="{{user.lastName}}"><br><br>
+        <p><b>Email:</b> {{user.email}}</p><br>
+        <button class="btn btn-primary btn-block" (click)="updateProfile()">
+          Update
+        </button>
+    </div>
+
+    <div id="mealPlans"></div>
+    <div id="shoppingLists"></div>
+
+</div>
+

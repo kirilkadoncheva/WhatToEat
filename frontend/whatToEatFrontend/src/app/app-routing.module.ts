@@ -5,6 +5,9 @@ import { AboutComponent } from './about/about.component';
 import { RecipeDetailsComponent } from './recipe.details/recipe.details.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { ReviewComponent } from './review/review.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { CreateRecipeComponent } from './create-recipe/create-recipe.component';
 
 
 const routes: Routes = [
@@ -16,7 +19,20 @@ const routes: Routes = [
   {
     path: 'recipes/:id',
     component: RecipeDetailsComponent
-  }
+  },
+  {
+    path: 'recipes/:id/review',
+    component: ReviewComponent
+  },
+  {
+    path: 'profiles/:id',
+    component: UserProfileComponent
+  },
+  {
+    path: 'createRecipe',
+    component: CreateRecipeComponent
+  },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
 ];
 
 @NgModule({

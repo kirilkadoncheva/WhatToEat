@@ -7,8 +7,10 @@ const ReviewModel = require('../models/reviewModel.js');
 
 router.post('/', async (req, res) => {
     let creatorId;
+    let creatorName;
     await authUtil.findUserByAuthToken(req, (err, user) => {
         creatorId = user._id;
+        creatorName = user.firstName.concat(" ", user.lastName);
     });
 
     const newRecipe = new RecipeModel({
@@ -19,7 +21,8 @@ router.post('/', async (req, res) => {
         cookingAlgorithm: req.body.cookingAlgorithm,
         image: req.body.image,
         ingredients: req.body.ingredients,
-        creator: creatorId
+        creator: creatorId,
+        creatorName: creatorName
     });
 
     newRecipe.save()
@@ -159,8 +162,10 @@ router.delete('/:id/reviews/:reviewId', async (req, res) => {
 
 router.post('/:id/reviews', async (req, res) => {
     let reviewerId;
+    let reviewerName;
     await authUtil.findUserByAuthToken(req, (err, user) => {
         reviewerId = user._id;
+        reviewerName = user.firstName.concat(" ", user.lastName);
     })
     if (res.writableFinished) {
         return;
@@ -169,6 +174,7 @@ router.post('/:id/reviews', async (req, res) => {
         let recipe = await RecipeModel.findById(req.params.id);
         let newReview = new ReviewModel({
             reviewer: reviewerId,
+            reviewerName: reviewerName,
             recipe: recipe._id,
             rating: req.body.rating,
             comment: req.body.comment
