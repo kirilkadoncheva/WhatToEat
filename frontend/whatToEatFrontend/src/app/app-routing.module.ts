@@ -11,6 +11,7 @@ import { CreateRecipeComponent } from './create-recipe/create-recipe.component';
 import { ShoppingListsComponent } from './shopping-lists/shopping-lists.component';
 import { MealPlansComponent } from './meal-plans/meal-plans.component';
 import { authGuard } from './guards/auth.guard';
+import { ShoppingListDetailsComponent } from './shopping-list-details/shopping-list-details.component';
 
 
 const routes: Routes = [
@@ -44,7 +45,17 @@ const routes: Routes = [
     canActivate: [authGuard],
   },
   {
+    path: 'myShoppingLists/:id',
+    component: ShoppingListDetailsComponent,
+    canActivate: [authGuard],
+  },
+  {
     path: 'myMealPlans',
+    component: MealPlansComponent,
+    canActivate: [authGuard],
+  },
+  {
+    path: 'myMealPlans/:id',
     component: MealPlansComponent,
     canActivate: [authGuard],
   },
