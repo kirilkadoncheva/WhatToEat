@@ -1,10 +1,5 @@
 <div class="col-md-12">
     <div class="card card-container">
-      <img
-        id="profile-img"
-        src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-        class="profile-img-card"
-      />
       <form
         *ngIf="!isSuccessful"
         name="form"
@@ -93,21 +88,16 @@
           </div>
         </div>
         <div class="form-group">
-          <button class="btn btn-primary btn-block">Sign Up</button>
+          <button mat-button class="btn btn-primary btn-block">Register</button>
         </div>
   
         <div class="alert alert-warning" *ngIf="f.submitted && isSignUpFailed">
-          Signup failed!<br />{{ errorMessage }}
+          Registration failed!<br />{{ errorMessage }}
         </div>
-        <!-- <div>
-            <img class="preview-image" [src]="imageFile ? imageFile.link : 'localhost/image.png'">
-            <button type="button" onclick="document.querySelector('#exampleInputFile').click()"></button>
-            <input type="file" id="exampleInputFile" (change)="imagesPreview($event)" style="display: none;">
-        </div> -->
       </form>
   
       <div class="alert alert-success" *ngIf="isSuccessful">
-        Your registration is successful!
+        Your registration is successful! Go to <a routerLink="/login">login</a>
       </div>
     </div>
   </div>
