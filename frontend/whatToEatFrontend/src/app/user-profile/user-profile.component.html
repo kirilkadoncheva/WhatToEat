@@ -45,9 +45,9 @@
             <mat-list *ngFor="let shoppingList of shoppingLists">
                 <!-- <hr><br> -->
                 <mat-list-item >
-                    <p style="float:left">{{shoppingList.startDate |date:'dd/MM/yyyy'}} - {{shoppingList.endDate |date:'dd/MM/yyyy'}}; </p>
+                    <p *ngIf="!shoppingList.completed" style="float:left">{{shoppingList.startDate |date:'dd/MM/yyyy'}} - {{shoppingList.endDate |date:'dd/MM/yyyy'}}; </p>
+                    <p *ngIf="shoppingList.completed" id="completed" style="float:left">{{shoppingList.startDate |date:'dd/MM/yyyy'}} - {{shoppingList.endDate |date:'dd/MM/yyyy'}}; </p>
                     <!-- <br> -->
-                    <p *ngIf="shoppingList.completed" style="float:right">Completed</p>
                 </mat-list-item>
            </mat-list>
         </section>

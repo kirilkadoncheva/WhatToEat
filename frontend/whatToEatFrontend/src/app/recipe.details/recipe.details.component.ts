@@ -10,38 +10,38 @@ import { UserRole } from '../authentication/sign-up-info';
   styleUrls: ['./recipe.details.component.css']
 })
 export class RecipeDetailsComponent implements OnInit {
-  public recipeUrl : String ;
-  deleteButton : boolean = false;
-  isDeleteModalOpen : boolean = false;
-  subRecipe : any ;
-  subReviews : any ;
+  public recipeUrl: String;
+  deleteButton: boolean = false;
+  isDeleteModalOpen: boolean = false;
+  subRecipe: any;
+  subReviews: any;
   private id: string;
   public recipe: Recipe;
-  public ownerName: String; 
-  public reviews: Array<Review>; 
+  public ownerName: String;
+  public reviews: Array<Review>;
 
-  constructor(private activatedRoute:ActivatedRoute,
+  constructor(private activatedRoute: ActivatedRoute,
     private recipeService: RecipeService,
     private token: TokenService,
-    private router : Router) { }
+    private router: Router) { }
 
   ngOnInit(): void {
-    this.subRecipe = this.activatedRoute.paramMap.subscribe(params => { 
-      this.id = params.get('id')!; 
+    this.subRecipe = this.activatedRoute.paramMap.subscribe(params => {
+      this.id = params.get('id')!;
       console.log(this.id);
       this.recipeService.getById(this.id).subscribe(
         response => this.loadRecipe(response)
-       );
-  })}
+      );
+    })
+  }
 
   loadRecipe(response: Recipe): void {
-    if(response)
-    {
+    if (response) {
       this.recipe = response;
       console.log(this.recipe);
-      this.recipeService.getReviewsForRecipe(this.recipe._id).subscribe((data) => {  
-        this.reviews = data; 
-        console.log(this.reviews); 
+      this.recipeService.getReviewsForRecipe(this.recipe._id).subscribe((data) => {
+        this.reviews = data;
+        console.log(this.reviews);
       })
     }
   }
@@ -54,16 +54,29 @@ export class RecipeDetailsComponent implements OnInit {
   }
 
   showDeleteButton(): boolean {
-    if (this.token.getToken() && 
+    if (this.token.getToken() &&
       (this.token.getUser()._id === this.recipe.creator || this.token.getUser().role == UserRole[1])) {
       return true;
     }
     return false;
   }
 
+  showDeleteReviewButton(reviewOwner: string) {
+    if (this.token.getToken() &&
+      (this.token.getUser()._id === reviewOwner || this.token.getUser().role == UserRole[1])) {
+      return true;
+    }
+    return false;
+  }
+
+  deleteReview(reviewId: string) {
+    this.recipeService.deleteReviewForRecipe(this.id, reviewId).subscribe(
+      response => window.location.reload()
+    );
+  }
   deleteRecipe(): void {
     this.recipeService.delete(this.id).subscribe(
       response => this.router.navigate(['/home'])
-     );
+    );
   }
 }

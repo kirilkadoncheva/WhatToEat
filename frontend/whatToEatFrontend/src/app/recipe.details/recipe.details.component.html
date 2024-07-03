@@ -66,6 +66,7 @@
                     <p style="float:left">{{review.reviewerName}} - {{review.rating}}/5 stars</p>
                     <br>
                     <p style="float:right">{{review.comment}}</p>
+                    <button style="float:left" *ngIf="showDeleteReviewButton(review.reviewer)" type="button" (click)="deleteReview(review._id)" >Delete</button>
                 </mat-list-item>
            </mat-list>
         </section>
