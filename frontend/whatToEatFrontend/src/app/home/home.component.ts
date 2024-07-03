@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RecipeService } from '../services/recipe.service';
 
 @Component({
@@ -6,7 +6,7 @@ import { RecipeService } from '../services/recipe.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
   recipes : any[] = [];
 	constructor(private recipeService: RecipeService) { }
   

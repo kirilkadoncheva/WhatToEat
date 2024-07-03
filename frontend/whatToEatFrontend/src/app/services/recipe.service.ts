@@ -53,7 +53,7 @@ export class Recipe {
 }
 
 export class Review {
-  id : string;
+  _id : string;
   reviewer: string;
   reviewerName: string;
   comment: string;
@@ -115,5 +115,9 @@ constructor(private httpClient: HttpClient) { }
   
   public postReviewForRecipe(id: String, review: Review): Observable<any> {  
 		return this.httpClient.post(this.SERVER_URL + "/" + id + "/reviews", review);  
+	}  
+
+  public deleteReviewForRecipe(id: String, reviewId: String): Observable<any> {  
+		return this.httpClient.delete(this.SERVER_URL + "/" + id + "/reviews/" + reviewId);  
 	}  
 }

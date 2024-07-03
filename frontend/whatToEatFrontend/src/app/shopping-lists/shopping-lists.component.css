@@ -1,0 +1,22 @@
+.content {
+    margin: 30px;
+    padding: 30px;
+    width: 100%;
+  }
+  
+  .content > mat-card {
+    width: 25%;
+    height: 200px;
+    margin-bottom: 30px;
+    padding: 30px;
+    margin-top: 30px;
+  }
+
+.cardImage {
+  width: 250px;
+  height: 200px;
+}
+
+#completed {
+    text-decoration: line-through;
+}

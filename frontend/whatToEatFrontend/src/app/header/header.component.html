@@ -4,7 +4,9 @@
     </h1>  
     <button mat-button routerLink="/">Home</button>  
     <button mat-button routerLink="/about">About</button>
-    <button mat-button *ngIf="isLoggedIn" routerLink="/createRecipe">Create</button>
+    <button mat-button *ngIf="isLoggedIn" routerLink="/createRecipe">Create Recipe</button>
+    <button mat-button *ngIf="isLoggedIn" routerLink="/myMealPlans">My Meal Plans</button>
+    <button mat-button *ngIf="isLoggedIn" routerLink="/myShoppingLists">My Shopping Lists</button>
     <span class="flexExpand"></span>
     <div>
         <a mat-button *ngIf="isLoggedIn" [routerLink]="['/profiles', userId]"> {{userEmail}} </a>
