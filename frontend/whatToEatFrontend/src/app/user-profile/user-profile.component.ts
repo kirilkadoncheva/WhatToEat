@@ -3,6 +3,8 @@ import { TokenService } from '../services/token.service';
 import { AuthService, User } from '../services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
+import { MealPlan, MealPlanService } from '../services/meal-plan.service';
+import { ShoppingList, ShoppingListService } from '../services/shopping-list.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -18,17 +20,21 @@ export class UserProfileComponent implements OnInit {
   user: User;
   userAvatarUrl: any;
   sub: any;
+  mealPlans: Array<MealPlan>
+  shoppingLists: Array<ShoppingList>
 
   constructor(private tokenService: TokenService,
     private authService: AuthService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private mealPlanService: MealPlanService,
+    private shoppingListService: ShoppingListService
   ) {
 
   }
   ngOnInit(): void {
-    if (!this.tokenService.getToken()) {
+    if (!this.tokenService.getToken() || !this.tokenService.getUser()) {
       this.router.navigate(['home']);
     }
 
@@ -42,6 +48,12 @@ export class UserProfileComponent implements OnInit {
       response => {
         this.user = response;
         this.userAvatarUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.user.avatar);
+        this.mealPlanService.getMealPlansForCurrentUser().subscribe(response => {
+          this.mealPlans = response;
+        });
+        this.shoppingListService.getShoppingListsForCurrentUser().subscribe(response => {
+          this.shoppingLists = response;
+        });
         console.log(this.user);
       }
     );
@@ -68,7 +80,9 @@ export class UserProfileComponent implements OnInit {
       this.authService.updateUser(this.user._id, this.form.firstName, this.form.lastName, this.form.avatar)
       .subscribe(response => {
         this.user = response;
-        window.location.reload();
+        this.tokenService.saveUser(this.user);
+        console.log(this.user);
+      
       })
   }
 }

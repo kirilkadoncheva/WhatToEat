@@ -22,12 +22,25 @@ router.get('/', async (req, res) => {
     if (ownerId === null || ownerId === undefined) {
         await authUtil.findUserByAuthToken(req, (err, user) => {
             ownerId = user._id;
+            console.log("from token " + ownerId);
         });
+    } else {
+        let isAdmin = false;
+        await authUtil.findUserByAuthToken(req, (err, user) => {
+            ownerId = user._id;
+            isAdmin = user.role === 'administrator';
+        });
+        console.log(isAdmin);
+        console.log(ownerId);
+        if (!isAdmin && ownerId != req.query.ownerId) {
+            authUtil.sendForbidden();
+        }
     }
+
  
     try {
         let mealPlans = await mealPlanService.getMealPlansByUserId(ownerId);
-        res.status(200).json({data: mealPlans});
+        res.status(200).json(mealPlans);
         res.end();
     } catch (error) {
         console.error(error);

@@ -23,8 +23,36 @@
         </button>
     </div>
 
-    <div id="mealPlans"></div>
-    <div id="shoppingLists"></div>
+    <div id="mealPlans">
+      <article>
+        <section>
+            <h2>My Meal Plans:</h2>
+            <mat-list *ngFor="let mealPlan of mealPlans">
+                <!-- <hr><br> -->
+                <mat-list-item >
+                    <p style="float:left">{{mealPlan.date |date:'dd/MM/yyyy'}} - </p>
+                    <!-- <br> -->
+                    <p style="float:right">{{mealPlan.recipes.length}} recipes</p>
+                </mat-list-item>
+           </mat-list>
+        </section>
+    </article>
+    </div>
+    <div id="shoppingLists">
+      <article>
+        <section>
+            <h2>My Shopping Lists:</h2>
+            <mat-list *ngFor="let shoppingList of shoppingLists">
+                <!-- <hr><br> -->
+                <mat-list-item >
+                    <p style="float:left">{{shoppingList.startDate |date:'dd/MM/yyyy'}} - {{shoppingList.endDate |date:'dd/MM/yyyy'}}; </p>
+                    <!-- <br> -->
+                    <p *ngIf="shoppingList.completed" style="float:right">Completed</p>
+                </mat-list-item>
+           </mat-list>
+        </section>
+    </article>
+    </div>
 
 </div>
 

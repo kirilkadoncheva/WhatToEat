@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { TokenService } from '../services/token.service';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -13,7 +13,8 @@ export class HeaderComponent implements OnInit {
   role: string;
   userId: string;
   userEmail: string
-    constructor(private tokenStorage: TokenService) {
+    constructor(private tokenStorage: TokenService,
+      private router: Router) {
       
     }
   ngOnInit(): void {
@@ -28,6 +29,7 @@ export class HeaderComponent implements OnInit {
   }
 
   logout(): void {
+    this.router.navigate(['home']);
     this.tokenStorage.logout();
   }
 }

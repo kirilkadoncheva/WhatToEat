@@ -58,6 +58,9 @@ updateUser(id: string, firstName: string, lastName: string, avatar: string): Obs
     return this.http.get<User>(USERS_API + "/" + id, { observe: "body", responseType: 'json' as 'json' })
     .pipe(switchMap(response => {
       let user = response;
+      console.log(user);
+      console.log(firstName);
+      console.log(lastName);
       if (firstName != null) {
         user.firstName = firstName;
       }
@@ -67,6 +70,7 @@ updateUser(id: string, firstName: string, lastName: string, avatar: string): Obs
       if (avatar != null) {
         user.avatar = avatar;
       }
+      console.log(user);
       return this.http.put(USERS_API + "/" + id, user, httpOptions).pipe(catchError(this.handleError));
     }));
   }

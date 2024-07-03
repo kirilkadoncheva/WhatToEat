@@ -8,6 +8,8 @@ import { RegisterComponent } from './register/register.component';
 import { ReviewComponent } from './review/review.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { CreateRecipeComponent } from './create-recipe/create-recipe.component';
+import { ShoppingListsComponent } from './shopping-lists/shopping-lists.component';
+import { MealPlansComponent } from './meal-plans/meal-plans.component';
 
 
 const routes: Routes = [
@@ -31,6 +33,14 @@ const routes: Routes = [
   {
     path: 'createRecipe',
     component: CreateRecipeComponent
+  },
+  {
+    path: 'myShoppingLists',
+    component: ShoppingListsComponent
+  },
+  {
+    path: 'myMealPlans',
+    component: MealPlansComponent
   },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
 ];

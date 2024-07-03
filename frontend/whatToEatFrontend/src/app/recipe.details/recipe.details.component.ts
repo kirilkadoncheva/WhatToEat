@@ -40,7 +40,8 @@ export class RecipeDetailsComponent implements OnInit {
       this.recipe = response;
       console.log(this.recipe);
       this.recipeService.getReviewsForRecipe(this.recipe._id).subscribe((data) => {  
-        this.reviews = data;  
+        this.reviews = data; 
+        console.log(this.reviews); 
       })
     }
   }

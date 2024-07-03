@@ -24,11 +24,22 @@ router.get('/', async(req, res) => {
         await authUtil.findUserByAuthToken(req, (err, user) => {
             ownerId = user._id;
         });
+    } else {
+        let isAdmin = false;
+        await authUtil.findUserByAuthToken(req, (err, user) => {
+            ownerId = user._id;
+            isAdmin = user.role === 'administrator';
+        });
+        console.log(isAdmin);
+        console.log(ownerId);
+        if (!isAdmin && ownerId != req.query.ownerId) {
+            authUtil.sendForbidden();
+        }
     }
  
     try {
         let shoppingLists = await shoppingListService.getShoppingListsByUserId(ownerId);
-        res.status(200).json({data: shoppingLists});
+        res.status(200).json(shoppingLists);
         res.end();
     } catch (error) {
         console.error(error);
