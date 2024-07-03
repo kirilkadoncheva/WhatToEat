@@ -10,6 +10,7 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { CreateRecipeComponent } from './create-recipe/create-recipe.component';
 import { ShoppingListsComponent } from './shopping-lists/shopping-lists.component';
 import { MealPlansComponent } from './meal-plans/meal-plans.component';
+import { authGuard } from './guards/auth.guard';
 
 
 const routes: Routes = [
@@ -24,23 +25,28 @@ const routes: Routes = [
   },
   {
     path: 'recipes/:id/review',
-    component: ReviewComponent
+    component: ReviewComponent,
+    canActivate: [authGuard],
   },
   {
     path: 'profiles/:id',
-    component: UserProfileComponent
+    component: UserProfileComponent,
+    canActivate: [authGuard],
   },
   {
     path: 'createRecipe',
-    component: CreateRecipeComponent
+    component: CreateRecipeComponent,
+    canActivate: [authGuard],
   },
   {
     path: 'myShoppingLists',
-    component: ShoppingListsComponent
+    component: ShoppingListsComponent,
+    canActivate: [authGuard],
   },
   {
     path: 'myMealPlans',
-    component: MealPlansComponent
+    component: MealPlansComponent,
+    canActivate: [authGuard],
   },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
 ];

@@ -1,1 +1,74 @@
-<p>create-recipe works!</p>
+<mat-card>
+    <mat-card-title>
+        <h2>Create Recipe</h2>
+    </mat-card-title>
+    <mat-card-content>
+        <form id="createRecipe" [formGroup]="reactform" (ngSubmit)="save()">
+            <mat-form-field appearance="fill">
+                <mat-label>Title</mat-label>
+                <input matInput formControlName="title">
+            </mat-form-field>
+            <label class="image-upload-container btn btn-bwm">
+                <span>Select Image</span>
+                <input #imageInput
+                       type="file"
+                       accept="image/*"
+                       (change)="processFile(imageInput)">
+            </label>
+            <br>
+            <mat-form-field appearance="fill">
+                <mat-label>Description</mat-label>
+                <textarea matInput formControlName="description"></textarea>
+            </mat-form-field>
+            <br>
+            <mat-form-field appearance="fill">
+                <mat-label>Cooking Time (mins)</mat-label>
+                <input matInput type="number" formControlName="cookingTime">
+            </mat-form-field>
+            <br>
+            <mat-form-field appearance="fill">
+                <mat-label>Number of Servings</mat-label>
+                <input matInput type="number" formControlName="numberOfServings">
+            </mat-form-field>
+            <br>
+            <mat-form-field appearance="fill">
+                <mat-label>Cooking instructions</mat-label>
+                <textarea matInput formControlName="cookingInstructions"></textarea>
+            </mat-form-field>
+            <br>
+            <table formArrayName="ingredients">
+                <tbody>
+                    <tr *ngFor="let item of ingredients.controls;let i=index" [formGroupName]="i">
+                        <td><input placeholder="Name" formControlName="name"></td>
+                        <td><input type="number" placeholder="Amount" formControlName="amount"></td>
+                        <td id="unit">
+                            <mat-label>Unit</mat-label>
+                            <mat-select formControlName="unit">
+                                <mat-option value="mL">mL</mat-option>
+                                <mat-option value="L">L</mat-option>
+                                <mat-option value="mg">mg</mat-option>
+                                <mat-option value="g">g</mat-option>
+                                <mat-option value="kg">kg</mat-option>
+                                <mat-option value="mm">mm</mat-option>
+                                <mat-option value="cm">cm</mat-option>
+                                <mat-option value="m">m</mat-option>
+                                <mat-option value="piece">piece</mat-option>
+                            </mat-select>
+                        </td>
+                        <td><button mat-button color="accent" (click)="removeIngredient(i)">Remove</button></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div>
+                <a mat-raised-button color="primary" (click)="addIngredient()">Add Ingredient</a>
+            </div>
+            <!-- <button type="submit" value="submit" id="submit">Submit</button> -->
+            <div class="example-button-row" style="margin-top: 5px">
+                <button form="createRecipe" mat-raised-button color="primary" type="submit">Submit</button> |
+                <button mat-raised-button color="accent" type="reset">Clear</button>
+            </div>
+        </form>
+        <a mat-raised-button color="primary" *ngIf="success" [routerLink] = "['/recipes', recipeId]">Success! Go to new recipe!</a>
+    </mat-card-content>
+</mat-card>

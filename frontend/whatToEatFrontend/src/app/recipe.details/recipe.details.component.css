@@ -105,3 +105,11 @@
   margin-top: 30px;
   /* border-style: dashed */
 }
+
+.photoDiv {
+  width: 50%;
+}
+.photo {
+  width: 70%;
+  height: 100%;
+}
