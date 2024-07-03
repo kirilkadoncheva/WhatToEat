@@ -1,0 +1,38 @@
+<div>
+    <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+        <div class="form-group">
+            <label for="rating">Rating</label>
+            <input type="number" class="form-control" name="rating" [(ngModel)]="form.rating" min="1" max="5" required #rating="ngModel" />
+            <div class="alert-danger" *ngIf="rating.errors && f.submitted">
+                <div *ngIf="rating.errors['required']">Rating is required</div>
+                <div *ngIf="rating.errors['min']">
+                    Rating is in the range 1 to 5.
+                </div>
+                <div *ngIf="rating.errors['max']">
+                    Rating is in the range 1 to 5.
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="comment">Comment</label>
+            <input type="textarea" class="form-control" name="comment" [(ngModel)]="form.comment"
+                maxlength="300" #comment="ngModel" />
+            <div class="alert-danger" *ngIf="comment.errors && f.submitted">
+                <div *ngIf="comment.errors['maxLength']">
+                    Comment must be at most 300 characters
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-primary btn-block">Leave a Review</button>
+          </div>
+    
+          <div class="alert alert-warning" *ngIf="f.submitted && isFailed">
+            Operation failed!<br />{{ errorMessage }}
+          </div>
+          <div class="alert alert-success" *ngIf="isSuccessful">
+            Review is posted successfully!
+            <button mat-button [routerLink]="['/recipes', recipeId]">Go to recipe</button>
+          </div>
+    </form>
+</div>

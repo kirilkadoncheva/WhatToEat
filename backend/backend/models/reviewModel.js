@@ -9,6 +9,7 @@ const reviewSchema = new mongoose.Schema({
         max: 5,
         required: true},
     reviewer: {type: mongoose.Schema.Types.ObjectId, ref: "User", required: true},
+    reviewerName: {type: String, required: true},
     recipe: {type: mongoose.Schema.Types.ObjectId, ref: "Recipe", required: true}
 })
 

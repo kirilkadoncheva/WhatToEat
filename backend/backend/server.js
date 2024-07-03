@@ -2,8 +2,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const BCrypt = require('bcryptjs');
 const JsonWebToken = require('jsonwebtoken');
-const BodyParser = require('body-parser');
 const cors = require('cors');
+var bodyParser = require('body-parser'); 
 
 const app = express();
 const userRoutes = require('./routes/userRoutes.js');
@@ -19,6 +19,7 @@ const shoppingListService = require('./services/shoppingListService.js');
 
 const {SERVER_PORT, DB_CONNECTION_STRING} = require('./constants.js');
 
+app.use(bodyParser.json({limit: "50mb"}));
 app.use(express.json());
 app.use(cors());
 app.get("/api/users", async function (req, res, next) {
@@ -72,7 +73,7 @@ app.use('/api/logout', logoutRoutes);
 
 app.put("/api/recipes/:id", async function (req, res, next) {
     await authUtil.authorizeRequest(req, res, next, async function (user, decodedJWT) {
-        await recipeService.verifyUserIsOwnerOrAdmin(user, decodedJWT, req, res);
+        await recipeService.verifyUserIsRecipeOwnerOrAdmin(user, decodedJWT, req, res);
     });
 });
 

@@ -92,10 +92,8 @@ router.put('/:id', async (req, res) => {
         var updateInfo = {
             firstName: req.body.firstName || user.firstName,
             lastName: req.body.lastName || user.lastName,
-            role: req.body.role || user.role,
-            password: req.body.password || user.password,
+            role: user.role,
             avatar: req.body.avatar || user.avatar,
-            token: newToken
         };
         await UserModel.updateOne({_id: req.params.id}, updateInfo);
         user = await UserModel.findById(req.params.id);
