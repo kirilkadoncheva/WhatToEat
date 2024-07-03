@@ -5,7 +5,7 @@ const ingredientSchema = new mongoose.Schema({
     amount: Number,
     unit: {
         type: String,
-        enum : ['mL','L', 'mg', 'g', 'kg', 'mm', 'cm', 'm'],
+        enum : ['mL','L', 'mg', 'g', 'kg', 'mm', 'cm', 'm', 'pieces'],
         default: 'mg'
     }
 });

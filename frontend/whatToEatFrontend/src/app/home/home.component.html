@@ -12,7 +12,7 @@
                         <p>
                             {{recipe.description}}
                         </p>
-                        <img style="height:100%; width: 100%;" src="{{recipe.image}}" />
+                        <img class="cardImage" src="{{recipe.image}}" />
                     </mat-card-content>
                     <mat-card-actions>
                   <button mat-button [routerLink]="['/recipes', recipe._id]">See more</button>

@@ -29,6 +29,13 @@ import { MealPlanDetailsComponent } from './meal-plan-details/meal-plan-details.
 import { ShoppingListDetailsComponent } from './shopping-list-details/shopping-list-details.component';
 import { CreateMealPlanComponent } from './create-meal-plan/create-meal-plan.component';
 import { CreateShoppingListComponent } from './create-shopping-list/create-shopping-list.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { MatSelectModule } from '@angular/material/select';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -62,7 +69,15 @@ import { CreateShoppingListComponent } from './create-shopping-list/create-shopp
     FormsModule,
     MatSidenavModule,
     MatListModule,
-    RouterModule
+    RouterModule,
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatTableModule, 
+    MatPaginatorModule, 
+    MatSortModule,
+    MatSelectModule,
+    BrowserAnimationsModule
 
   ],
   providers: [

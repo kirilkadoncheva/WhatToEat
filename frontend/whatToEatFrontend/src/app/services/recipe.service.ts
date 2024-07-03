@@ -16,27 +16,27 @@ export class Ingredient {
 }
 
 export class Recipe {
-  _id : string;
-  creator: string;
-  creatorName: string;
-  title : string;
-  description : string;
+  _id : String;
+  creator: String;
+  creatorName: String;
+  title : String;
+  description : String;
   cookingTime : number;
   numberOfServings : number;
-  cookingAlgorithm : string;
-  image : string;
+  cookingAlgorithm : String;
+  image : String;
   ingredients : Array<Ingredient>;
 
   constructor(
-  id : string,
-  creator: string,
-  creatorName: string,
-  title : string,
-  description : string,
+  id : String,
+  creator: String,
+  creatorName: String,
+  title : String,
+  description : String,
   cookingTime : number,
   numberOfServings : number,
-  cookingAlgorithm : string,
-  image : string,
+  cookingAlgorithm : String,
+  image : String,
   ingredients : Array<Ingredient>,
   ) {
     this._id = id;
@@ -105,11 +105,15 @@ constructor(private httpClient: HttpClient) { }
 		return this.httpClient.delete(this.SERVER_URL + "/" + id).pipe(catchError(this.handleError));  
 	}  
 
-  public getReviewsForRecipe(id: string){  
+  public create(recipe: Recipe) {
+    return this.httpClient.post(this.SERVER_URL, recipe);
+  }
+
+  public getReviewsForRecipe(id: String){  
 		return this.httpClient.get<Review[]>(this.SERVER_URL + "/" + id + "/reviews").pipe(catchError(this.handleError));  
 	}
   
-  public postReviewForRecipe(id: string, review: Review): Observable<any> {  
+  public postReviewForRecipe(id: String, review: Review): Observable<any> {  
 		return this.httpClient.post(this.SERVER_URL + "/" + id + "/reviews", review);  
 	}  
 }
